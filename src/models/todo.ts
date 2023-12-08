@@ -15,4 +15,4 @@ const todoSchema: Schema = new Schema(
     {timestamps:true}
 )
 
-export default model<Todo>('Todo',todoSchema)
+export default model<Todo>('Todo', todoSchema);
