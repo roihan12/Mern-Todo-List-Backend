@@ -4,7 +4,7 @@ import cors from "cors";
 import routes from "./routes";
 const app = express();
 
-const PORT = 1532;
+const PORT = process.env.PORT || 8080;
 
 const { MONGODB_PASSWORD, MONGODB_USERNAME, MONGODB_DBNAME } = process.env;
 

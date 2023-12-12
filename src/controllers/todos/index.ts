@@ -2,19 +2,32 @@ import { Request, Response } from "express";
 import TodoModel from "../../models/todo";
 import { Todo } from "../../types/todo";
 
-export const getTodos = async (req: Request, res: Response) => {
+export const getTodos = async (req: Request, res: Response): Promise<void> => {
   const todos: Todo[] = await TodoModel.find();
 
-  res.status(200).json({ todos });
+  res.status(200).json({
+    message: "Get all todos successfully ",
+    todos: todos,
+  });
 };
 
-export const getTodo = async (req: Request, res: Response) => {
-  await TodoModel.findById(req.params.id, (err: any, result: any) => {
-    if (err) {
-      res.status(400).json({ error: err });
-    } else {
-      res.status(200).json({ todo: result });
-    }
+export const getTodo = async (req: Request, res: Response): Promise<void> => {
+  const {
+    params: { id },
+  } = req;
+
+  const todo = await TodoModel.findById(id);
+  if (!id) {
+    res.status(400).json({
+      status: 401,
+      errorMessage: `ValidationError: params _id  is not found.`,
+    });
+    return;
+  }
+
+  res.status(200).json({
+    message: "Get all todos successfully ",
+    result: todo,
   });
 };
 
