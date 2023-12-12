@@ -4,12 +4,19 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "tsc",
-    "start": "concurrently \"tsc -w\" \"nodemon dist/js/app.js\"",
+    "build": "rimraf dist && tsc",
+    "start": "nodemon src/app.ts",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
     "prettier": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -27,7 +34,9 @@
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.3",
     "nodemon": "^3.0.2",
-    "prettier": "^3.1.0"
+    "pre-commit": "^1.2.2",
+    "prettier": "^3.1.0",
+    "rimraf": "^5.0.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
